@@ -46,12 +46,12 @@ jobs:
           ./scripts/feeds update -a
       - name: Update package
         run: |
-          curl -fsSL https://git.io/JIgRR | sh
+          curl -fsSL https://git.io/JIgEn | sh
           ./scripts/feeds install -a
           chmod -R 775 .
       - name: Generate configuration file
         run: |
-          curl -fsSL https://git.io/JIgRu > .config
+          curl -fsSL https://git.io/JIgEB > .config
           make defconfig
       - name: Make download
         run: |
