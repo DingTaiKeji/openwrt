@@ -46,12 +46,12 @@ jobs:
           ./scripts/feeds update -a
       - name: Update package
         run: |
-          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/script/update_package_all.sh | sh
+          curl -fsSL https://git.io/JIgRm | sh
           ./scripts/feeds install -a
           chmod -R 755 .
       - name: Generate configuration file
         run: |
-          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/x86-64/allappdrv.config > .config
+          curl -fsSL https://git.io/JIgRW > .config
           make defconfig
       - name: Make download
         run: |
