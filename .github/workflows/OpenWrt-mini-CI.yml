@@ -8,8 +8,6 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-#  schedule:
-#    - cron: 0 21 */7 * * 
 
 jobs:
 
@@ -44,16 +42,16 @@ jobs:
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           sed -i 's/coolsnowwolf/sirpdboy/g' ./feeds.conf.default
-          git clone https://github.com/sirpdboy/sirpdboy-package package/diy
+          git clone https://github.com/DingTaiKeji/sirpdboy-package package/diy
           ./scripts/feeds update -a
       - name: Update package
         run: |
-          curl -fsSL https://git.io/JUgLD | sh
+          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/script/update_package_mini.sh | sh
           ./scripts/feeds install -a
           chmod -R 775 .
       - name: Generate configuration file
         run: |
-          curl -fsSL https://git.io/JUgLS > .config
+          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/x86-64/minialldrv.config > .config
           make defconfig
       - name: Make download
         run: |
@@ -81,12 +79,12 @@ jobs:
       - name: Upload Firmware
         uses: actions/upload-artifact@main
         with:
-          name: SirpdboyOpenWrt-mini-Firmware
+          name: OpenWrt-mini-Firmware
           path: ./mini/firmware
       - name: Upload  IPK
         uses: actions/upload-artifact@main
         with:
-          name: SirpdboyOpenWrt-mini-Ipk
+          name: OpenWrt-mini-Ipk
           path: ./mini/package
       - name: Upload firmware to cowtransfer
         run: |

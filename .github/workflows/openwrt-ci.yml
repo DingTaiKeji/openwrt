@@ -1,7 +1,6 @@
 
 name: OpenWrt-CI
 
-
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -10,8 +9,6 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-#  schedule:
-#    - cron: 0 21 */7 * * 
 
 jobs:
 
@@ -45,16 +42,16 @@ jobs:
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           sed -i 's/coolsnowwolf/sirpdboy/g' ./feeds.conf.default
-          git clone https://github.com/sirpdboy/sirpdboy-package package/diy
+          git clone https://github.com/DingTaiKeji/sirpdboy-package package/diy
           ./scripts/feeds update -a
       - name: Update package
         run: |
-          curl -fsSL https://git.io/JUgLH | sh
+          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/script/update_package_all.sh | sh
           ./scripts/feeds install -a
           chmod -R 755 .
       - name: Generate configuration file
         run: |
-          curl -fsSL https://git.io/JUgLQ > .config
+          curl -fsSL https://github.com/DingTaiKeji/other/blob/master/patch/x86-64/allappdrv.config > .config
           make defconfig
       - name: Make download
         run: |
@@ -83,12 +80,12 @@ jobs:
       - name: Upload Firmware
         uses: actions/upload-artifact@main
         with:
-          name: SirpdboyOpenWrt-IPV6-Firmware
+          name: OpenWrt-IPV6-Firmware
           path: ./new/firmware
       - name: Upload  IPK
         uses: actions/upload-artifact@main
         with:
-          name: SirpdboyOpenWrt-IPV6-Ipk
+          name: OpenWrt-IPV6-Ipk
           path: ./new/package
       - name: Upload firmware to cowtransfer
         run: |
